@@ -1,8 +1,11 @@
 import { ping } from "../src/discord";
 
+// testEnvironment: "node"
+// pour faire ce test (désactiver par défaut)
+
 describe('Discord', () => {
 
-    it('should dm the user', async () => {
+    it.skip('should dm the user', async () => {
         const channelMock = {
             send : jest.fn()
         }
@@ -20,7 +23,7 @@ describe('Discord', () => {
         expect(channelMock.send).toHaveBeenCalledWith('pong');
     });
 
-    it('should reply to the user if dm are desactived', async () => {
+    it.skip('should reply to the user if dm are desactived', async () => {
         const createDMMock = jest.fn().mockRejectedValue({});
         const message = {
             delete : jest.fn().mockResolvedValue({}),
