@@ -1,1 +1,6 @@
-node_modules
+
+**/jest-js-2/node_modules/
+**/hello-jest/node_modules/
+**/.idea
+**/jest-js-2/.idea
+**/hello-jest/.idea
