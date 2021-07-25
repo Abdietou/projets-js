@@ -1,19 +1,13 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<h1>Veille Techno</h1>
+<Form @add="saveTechno"/>
+<br />
+
+<TechnoList :technos="technos"/>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
-
+<script src="./app.js"></script>
+set
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
