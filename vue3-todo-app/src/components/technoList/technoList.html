@@ -1,0 +1,5 @@
+<h3>Toutes les technos à veiller</h3>
+{{technos.length}} techno{{technos.length >1 ? 's' : ""}}
+<ul>
+    <li v-for="tech in technos" v-bind:key="tech.id">{{tech.techno}}</li>
+  </ul>
