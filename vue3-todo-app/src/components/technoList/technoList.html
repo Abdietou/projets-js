@@ -1,5 +1,15 @@
 <h3>Toutes les technos à veiller</h3>
 {{technos.length}} techno{{technos.length >1 ? 's' : ""}}
 <ul>
-    <li v-for="tech in technos" v-bind:key="tech.id">{{tech.techno}}</li>
-  </ul>
+  <li v-for="tech in technos" v-bind:key="tech.id">
+    <button @Click="editTechno(tech)">Modifier</button>
+    <button @Click="deleteTechno(tech)">Supprimer</button>
+    <span v-if="technoToEdit !== null && technoToEdit.id === tech.id">
+      <input type="text" v-model="technoToEdit.techno" @keypress.enter="save">
+      <button @Click="save()">Sauvegarder</button>
+    </span>
+    <span v-else>
+      {{tech.techno}}
+    </span>
+  </li>
+</ul>

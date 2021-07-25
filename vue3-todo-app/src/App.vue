@@ -3,7 +3,7 @@
 <Form @add="saveTechno"/>
 <br />
 
-<TechnoList :technos="technos"/>
+<TechnoList :technos="technos" @delete-techno="deleteTechno" @edit-techno="editTechno"/>
 </template>
 
 <script src="./app.js"></script>

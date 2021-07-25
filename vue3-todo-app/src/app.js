@@ -8,6 +8,7 @@ export default {
     Form,
     TechnoList
   },
+
   setup() {
     let technos = ref([]);
     
@@ -15,7 +16,17 @@ export default {
       console.log("APP | saveTechno() | data", data); 
       technos.value = [...technos.value, {techno: data, id: Date.now() }];
       console.log("APP | saveTechno() | technos.value", technos.value);
+    };
+
+    const deleteTechno = function(data) {
+      console.log('APP | deleteTechno() | tech', data);
+      technos.value = technos.value.filter(t => t.id !== data.id);
     }
-    return {saveTechno, technos, TechnoList}
+
+    const editTechno = function (data) {
+      technos.value = technos.value.map(t => t.id !== data.id ? t : data);
+    }
+
+    return {saveTechno, technos, TechnoList, deleteTechno, editTechno}
   }
 };
