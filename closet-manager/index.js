@@ -1,6 +1,6 @@
 const foodDiv = document.querySelector(".food");
 const url = "http://127.0.0.1:1337";
-const POST_ITEMS = "/food-items";
+const POST_DELETE_ITEMS = "/food-items";
 const GET_ITEMS = "/food-items?_sort=expirationdate:ASC";
 let allFood = [];
 let dataSend = {};
@@ -11,6 +11,8 @@ const expirationDate = addFoodForm.expirationdate;
 
 addFoodForm.addEventListener("submit", addFood);
 let lastAddedItem = null;
+
+foodDiv.addEventListener("click", deleteFoodItemp);
 
 
 init();
@@ -37,7 +39,7 @@ function getFood() {
         let list = [];
         food.forEach(f => {
             const dateFR = convertInFrenchDateString(f.expirationdate);
-            const item = `<li id=${f.id}>${f.title} à consommer avant le ${dateFR}</li>`;
+            const item = `<li id=${f.id}><button>X</button> ${f.title} à consommer avant le ${dateFR}</li>`;
             list = [...list, item];
         });
         console.log(list);
@@ -60,7 +62,7 @@ function addFood(event) {
 }
 
 function postFood() {
-    fetch(url + POST_ITEMS, {
+    fetch(url + POST_DELETE_ITEMS, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -94,4 +96,23 @@ function flashLastAddedItem(item) {
 function convertInFrenchDateString(dateString) {
     const dateFrag = dateString.split('-');
     return `${dateFrag[2]}/${dateFrag[1]}/${dateFrag[0]}`
+}
+
+function deleteFoodItemp(event) {
+    if (event.target.nodeName.toLowerCase() !== "button"){
+        return;
+    }
+
+    const foodItemId = event.target.parentNode.id;
+    console.log(foodItemId);
+    deletePost(foodItemId);
+}
+
+function deletePost(id) {
+    fetch(url + POST_DELETE_ITEMS + "/"+ id, {
+        method : "DELETE"
+    }).then(resp => {
+        console.log(resp);
+        getFood();
+    });
 }
