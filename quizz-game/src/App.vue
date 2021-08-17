@@ -3,9 +3,9 @@
     <template v-if="this.question">
       <h1 v-html="this.question"></h1>
 
-      <template v-for="(answer, index) in this.answers" :key="index">
-        <input type="radio" name="options" value="answer" />
-        <label v-html="answer"></label><br />
+      <template v-for="(answers, index) in this.answer" :key="index">
+        <input type="radio" name="options" value="answers" />
+        <label v-html="answers"></label><br />
       </template>
     </template>
 

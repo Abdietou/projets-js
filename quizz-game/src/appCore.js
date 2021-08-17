@@ -5,19 +5,18 @@ export default {
       question: undefined,
       incorrectAnswers: undefined,
       correctAnswer: undefined,
-      answers: undefined,
     };
   },
   computed: {
     answer() {
-      this.answers = JSON.parse(JSON.stringify(this.incorrectAnswers));
-      this.answers.splice(
-        Math.round(Math.random() * this.answers.length),
+      let answers = JSON.parse(JSON.stringify(this.incorrectAnswers));
+      answers.splice(
+        Math.round(Math.random() * answers.length),
         0,
         this.correctAnswer
       );
 
-      return this.answers;
+      return answers;
     },
   },
   created() {
