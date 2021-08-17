@@ -1,26 +1,19 @@
 <template>
   <div>
-    <h1>
-      Microphones can be user not only to pick sound, but also to project
-      similar to a speaker.
-    </h1>
-    <input type="radio" name="options" value="True" />
-    <label>True</label><br />
+    <template v-if="this.question">
+      <h1 v-html="this.question"></h1>
 
-    <input type="radio" name="options" value="False" />
-    <label>False</label><br />
+      <template v-for="(answer, index) in this.answers" :key="index">
+        <input type="radio" name="options" value="answer" />
+        <label v-html="answer"></label><br />
+      </template>
+    </template>
 
     <button class="send" type="button">Send</button>
   </div>
 </template>
 
-<script>
-export default {
-  name: "App",
-};
-
-//url api quizz question -  https://opentdb.com/api.php?amount=10&category=15
-</script>
+<script src="./appCore.js"></script>
 
 <style lang="scss">
 #app {
