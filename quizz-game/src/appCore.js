@@ -1,5 +1,11 @@
+import ScoreComp from "@/components/ScoreComp/ScoreComp.vue";
+
 export default {
   name: "App",
+  components: {
+    ScoreComp,
+  },
+
   data() {
     return {
       question: undefined,
@@ -7,6 +13,8 @@ export default {
       correctAnswer: undefined,
       chosenAnwser: undefined,
       answerSubmitted: false,
+      winCount: 0,
+      loseCount: 0,
     };
   },
   computed: {
@@ -27,6 +35,11 @@ export default {
         alert("choose an answer");
       } else {
         this.answerSubmitted = true;
+        if (this.chosenAnwser == this.correctAnswer) {
+          this.winCount++;
+        } else {
+          this.loseCount++;
+        }
       }
     },
 

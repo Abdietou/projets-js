@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ScoreComp :winCount="this.winCount" :loseCount="this.loseCount" />
     <template v-if="this.question">
       <h1 v-html="this.question"></h1>
 
