@@ -40,6 +40,8 @@ export default {
         } else {
           this.loseCount++;
         }
+        localStorage.setItem("winCount", this.winCount);
+        localStorage.setItem("loseCount", this.loseCount);
       }
     },
 
@@ -56,8 +58,17 @@ export default {
           this.correctAnswer = res.data.results[0].correct_answer;
         });
     },
+    scoreInit() {
+      if (localStorage.getItem("winCount")) {
+        this.winCount = localStorage.getItem("winCount");
+      }
+      if (localStorage.getItem("loseCount")) {
+        this.loseCount = localStorage.getItem("loseCount");
+      }
+    },
   },
   created() {
     this.getNewQuestion();
+    this.scoreInit();
   },
 };
