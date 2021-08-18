@@ -5,6 +5,8 @@ export default {
       question: undefined,
       incorrectAnswers: undefined,
       correctAnswer: undefined,
+      chosenAnwser: undefined,
+      answerSubmitted: false,
     };
   },
   computed: {
@@ -19,13 +21,30 @@ export default {
       return answers;
     },
   },
+  methods: {
+    submitAnswer() {
+      if (!this.chosenAnwser) {
+        alert("choose an answer");
+      } else {
+        this.answerSubmitted = true;
+      }
+    },
+
+    getNewQuestion() {
+      this.answerSubmitted = false;
+      this.chosenAnwser = undefined;
+      this.question = undefined;
+
+      this.axios
+        .get("https://opentdb.com/api.php?amount=10&category=15")
+        .then((res) => {
+          this.question = res.data.results[0].question;
+          this.incorrectAnswers = res.data.results[0].incorrect_answers;
+          this.correctAnswer = res.data.results[0].correct_answer;
+        });
+    },
+  },
   created() {
-    this.axios
-      .get("https://opentdb.com/api.php?amount=10&category=15")
-      .then((res) => {
-        this.question = res.data.results[0].question;
-        this.incorrectAnswers = res.data.results[0].incorrect_answers;
-        this.correctAnswer = res.data.results[0].correct_answer;
-      });
+    this.getNewQuestion();
   },
 };
