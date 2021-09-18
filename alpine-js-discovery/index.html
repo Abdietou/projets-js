@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <script src="./app.js" defer></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+    <title>Tuto Alpine js</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark"></nav>
+
+    <div class="container my-5" x-data="{showSpoiler : false}">
+      <h1>Mon avis sur la techno</h1>
+      <p>
+        Le Lorem Ipsum est simplement du faux texte employé dans la composition
+        et la mise en page avant impression. Le Lorem Ipsum est le faux texte
+        standard de l'imprimerie depuis les années 1500, quand un imprimeur
+        anonyme assembla ensemble des morceaux de texte pour réaliser un livre
+        spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles,
+        mais s'est aussi adapté à la bureautique informatique, sans que son
+        contenu n'en soit modifié. Il a été popularisé dans les années 1960
+        grâce à la vente de feuilles Letraset contenant des passages du Lorem
+        Ipsum, et, plus récemment, par son inclusion dans des applications de
+        mise en page de texte, comme Aldus PageMaker.
+      </p>
+      <p>
+        Contrairement à une opinion répandue, le Lorem Ipsum n'est pas
+        simplement du texte aléatoire. Il trouve ses racines dans une oeuvre de
+        la littérature latine classique datant de 45 av. J.-C., le rendant vieux
+        de 2000 ans.
+      </p>
+      <template x-if="!showSpoiler">
+        <button @click="showSpoiler = true">Afficher le spoiler</button>
+      </template>
+      <template x-if="showSpoiler">
+        <p>
+          <b>Un professeur du Hampden-Sydney College, en Virginie</b>, s'est
+          intéressé à un des mots latins les plus obscurs, consectetur, extrait
+          d'un passage du Lorem Ipsum, et en étudiant tous les usages de ce mot
+          dans la littérature classique, découvrit la source incontestable du
+          Lorem Ipsum.
+        </p>
+      </template>
+    </div>
+
+    <div class="container my-5" x-data="tabs('tab1')">
+      <p x-text="tab"></p>
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a
+            href="#tab1"
+            class="nav-link"
+            @click="toogleTab"
+            x-active-page="isActive('tab1')"
+            >Onglet 1</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            href="#tab2"
+            class="nav-link"
+            @click="toogleTab"
+            :class="{active: isActive('tab2')}"
+            >Onglet 2</a
+          >
+        </li>
+      </ul>
+      <div class="mt-2">
+        <template x-if="isActive('tab1')">
+          <div>
+            <h2>Onglet 1</h2>
+            <p>
+              L'extrait standard de Lorem Ipsum utilisé depuis le XVIè siècle
+              est reproduit ci-dessous pour les curieux.
+            </p>
+            <p>
+              <a href="#tab2" @click="toogleTab">Aller à l'onglet 2</a>
+            </p>
+          </div>
+        </template>
+        <template x-if="isActive('tab2')">
+          <div>
+            <h2>Onglet 2</h2>
+            <p>
+              Les sections 1.10.32 et 1.10.33 du "De Finibus Bonorum et Malorum"
+              de Cicéron sont aussi reproduites dans leur version originale,
+              accompagnée de la traduction anglaise de H. Rackham (1914).
+            </p>
+            <div x-data="posts()">
+              <p x-show="!$store.posts.loaded">
+                <button
+                  btn
+                  btn-primary
+                  :disabled="$store.posts.loading"
+                  @click="$store.posts.loadPost()"
+                >
+                  Charger les articles
+                </button>
+              </p>
+              <div x-show="$store.posts.loading" class="spinner-border"></div>
+              <template x-for="post in $store.posts.posts" :key="post.id">
+                <article class="card p-2">
+                  <h3 x-text="post.title"></h3>
+                  <p x-text="post.body"></p>
+                </article>
+              </template>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </body>
+</html>
