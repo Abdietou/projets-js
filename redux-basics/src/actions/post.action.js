@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const GET_POST = "GET_POST";
 export const ADD_POST = "ADD_POST";
+export const PATCH_POST = "PATCH_POST";
 
 const urlApi = "http://localhost:3000";
 const getPostApiByOrder = "/posts?_sort=id&_order=desc";
@@ -26,6 +27,22 @@ export const addPosts = (data) => {
       .post(urlApi + addPostApi, data)
       .then((response) => {
         dispatch({ type: ADD_POST, payload: data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+export const patchPost = (data) => {
+  return (dispatch) => {
+    return axios({
+      method: "patch",
+      url: urlApi + addPostApi + "/" + data.id,
+      data: { ...data },
+    })
+      .then((response) => {
+        dispatch({ type: PATCH_POST, payload: { ...data } });
       })
       .catch((error) => {
         console.log(error);

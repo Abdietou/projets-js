@@ -22,25 +22,25 @@
       "id": "3"
     },
     {
-      "title": "Article",
-      "content": "Premier test",
+      "title": "Article 1",
+      "content": "premier test",
       "author": "user42",
       "like": 0,
-      "id": "q3SNAF0"
+      "id": "OkjjyQd"
     },
     {
       "title": "Article 2",
-      "content": "Super",
+      "content": "Deuxième test blablabla",
       "author": "user42",
       "like": 0,
-      "id": "QqHXlA4"
+      "id": "jccWuwb"
     },
     {
       "title": "Article 3",
-      "content": "3eme test",
+      "content": "3eme test\nblabla",
       "author": "user42",
       "like": 0,
-      "id": "4trombc"
+      "id": "TQMT3Ea"
     }
   ],
   "users": [
