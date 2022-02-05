@@ -4,6 +4,7 @@ export const GET_POST = "GET_POST";
 export const ADD_POST = "ADD_POST";
 export const PATCH_POST = "PATCH_POST";
 export const DELETE_POST = "DELETE_POST";
+export const ADD_LIKES = "ADD_LIKES";
 
 const urlApi = "http://localhost:3000";
 const getPostApiByOrder = "/posts?_sort=id&_order=desc";
@@ -59,6 +60,22 @@ export const deletePost = (id) => {
     })
       .then((response) => {
         dispatch({ type: DELETE_POST, payload: { id } });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+export const addLikes = (data) => {
+  return (dispatch) => {
+    return axios({
+      method: "patch",
+      url: urlApi + addPostApi + "/" + data.id,
+      data: { ...data },
+    })
+      .then((response) => {
+        dispatch({ type: ADD_LIKES, payload: { ...data } });
       })
       .catch((error) => {
         console.log(error);
