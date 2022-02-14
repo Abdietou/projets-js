@@ -1,24 +1,69 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	<h1>Home page</h1>
-	<p>
+	<h1>Contact page</h1>
+	<div class="container">
 		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id
-				      exercitationem officiis provident saepe cumque. Iusto nisi eveniet amet
-				      natus nemo repellat saepe distinctio voluptatem. Totam commodi impedit
-				      aliquid sequi cumque! Unde repellat, laborum recusandae accusamus veniam
-				      neque repellendus assumenda atque itaque, maiores quos minus optio cum
-				      molestias, perferendis inventore qui ut! Eligendi, tempore quibusdam. Esse
-				      animi assumenda facilis quaerat quae? Officiis, maxime quis atque vel,
-				      tempore provident nihil sed rerum dolorem perspiciatis laborum ad
-				      necessitatibus facere. Praesentium consequatur repudiandae neque suscipit
-				      quos sed autem quia beatae similique, expedita molestias ab! Itaque
-				      voluptates, voluptatum laboriosam amet ex reprehenderit autem fugit
-				      consequuntur possimus accusantium, dicta mollitia deleniti odit officia
-				      dolorem commodi nam vel accusamus enim tempore molestiae alias
-				      repudiandae. Explicabo, neque magni? Dolorum, id, ullam officiis in sit
-				      blanditiis debitis nostrum sed itaque excepturi commodi ut eos. Voluptates
-				      aliquid, vel quos illo modi harum nesciunt nihil animi perferendis nostrum
-				      culpa, totam recusandae.
-	</p>
+																																						      exercitationem officiis provident saepe cumque. Iusto nisi eveniet amet
+																																						      natus nemo repellat saepe distinctio voluptatem. Totam commodi impedit
+																																						      aliquid sequi cumque! Unde repellat, laborum recusandae accusamus veniam
+																																						      neque repellendus assumenda atque itaque, maiores quos minus optio cum
+																																						      molestias, perferendis inventore qui ut! Eligendi, tempore quibusdam. Esse
+																																						      animi assumenda facilis quaerat quae? Officiis, maxime quis atque vel,
+																																						      tempore provident nihil sed rerum dolorem perspiciatis laborum ad
+																																						      necessitatibus facere. Praesentium consequatur repudiandae neque suscipit
+																																						      quos sed autem quia beatae similique, expedita molestias ab! Itaque
+																																						      voluptates, voluptatum laboriosam amet ex reprehenderit autem fugit
+																																						      consequuntur possimus accusantium, dicta mollitia deleniti odit officia
+																																						      dolorem commodi nam vel accusamus enim tempore molestiae alias
+																																						      repudiandae. Explicabo, neque magni? Dolorum, id, ullam officiis in sit
+																																						      blanditiis debitis nostrum sed itaque excepturi commodi ut eos. Voluptates
+																																						      aliquid, vel quos illo modi harum nesciunt nihil animi perferendis nostrum
+																																						      culpa, totam recusandae.
+	</div>
+	<br>
+
+	<div class="container">
+		<form method="POST" action="/contact">
+			{% if success %}
+				<div class="alert alert-success">{{success}}</div>
+			{% endif %}
+			{% if error %}
+				<div class="alert alert-danger">{{error}}</div>
+			{% endif %}
+
+			<div class="mb-3">
+				<label for="email" class="form-label">Email address :</label>
+				<input type="email" class="form-control" id="email" name="email">
+
+				{% if formError.email %}
+					<ul class="error">
+						<li>{{formError.email.message}}</li>
+					</ul>
+				{% endif %}
+
+
+			</div>
+			<div class=" mb-3">
+				<label for="subject" class="form-label">Subject :</label>
+				<input type="subject" name="subject" class="form-control" id="subject">
+				{% if formError.subject %}
+					<ul class="error">
+						<li>{{formError.subject.message}}</li>
+					</ul>
+				{% endif %}
+			</div>
+			<div
+				class="mb-3">
+				{# <input for="message" class="form-label" id="message"> #}
+				<textarea class="form-control" name="message" id="message" rows="4">your message :</textarea>
+				{% if formError.message %}
+					<ul class="error">
+						<li>{{formError.message.message}}</li>
+					</ul>
+				{% endif %}
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
 {% endblock %}

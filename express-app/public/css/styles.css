@@ -13,3 +13,7 @@ img {
   height: 300px;
   margin: 5px auto;
 }
+
+ul.error li {
+  color: red;
+}

@@ -1,7 +1,14 @@
 const express = require("express");
-const res = require("express/lib/response");
 const app = express();
 const port = 3013;
+const indexRouter = require("./routes/index.route");
+const bodyParser = require("body-parser");
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 
 app.set("view engine", "twig");
 
@@ -12,16 +19,7 @@ app.use((request, response, next) => {
   next();
 });
 
-app.get("/", (request, response) => {
-  //response.sendFile(__dirname + "/index.html");
-  response.render("index", { title: "home page" });
-});
-
-app.get("/contact", (request, response) => {
-  //console.log(request.message);
-  //response.sendFile(__dirname + "/contact.html");
-  response.render("contact");
-});
+app.use("/", indexRouter);
 
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
