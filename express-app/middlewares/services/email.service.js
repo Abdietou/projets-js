@@ -5,7 +5,7 @@ sendMail = (req, res, next) => {
     service: "gmail",
     auth: {
       user: "abdietou@gmail.com",
-      pass: "dut3s2dz",
+      pass: "wwtuyasz",
     },
   });
   var message =
