@@ -22,18 +22,19 @@ mongoose
 
 /** example inster data */
 
-for (let index = 0; index < 10; index++) {
-  var article = new Article({
-    name: "Article " + index,
-    content: "Content " + index,
-    publishedDate: Date.now(),
-  });
+// for (let index = 0; index < 10; index++) {
+//   var article = new Article({
+//     title: "Titre " + index,
+//     name: "Article " + index,
+//     content: "Content " + index,
+//     publishedDate: Date.now(),
+//   });
 
-  article
-    .save()
-    .then(() => console.log("Sauvegarde OK"))
-    .catch(() => console.log("Sauvegarde KO"));
-}
+//   article
+//     .save()
+//     .then(() => console.log("Sauvegarde OK"))
+//     .catch(() => console.log("Sauvegarde KO"));
+// }
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
