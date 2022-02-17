@@ -22,19 +22,19 @@ mongoose
 
 /** example inster data */
 
-// for (let index = 0; index < 10; index++) {
-//   var article = new Article({
-//     title: "Titre " + index,
-//     name: "Article " + index,
-//     content: "Content " + index,
-//     publishedDate: Date.now(),
-//   });
+for (let index = 0; index < 10; index++) {
+  var article = new Article({
+    name: "Qu'est-ce que le Lorem Ipsum " + index + " ?",
+    content:
+      "Le Lorem Ipsum apparaît régulièrement sur les sites web ou sur les templates de page internet. Si vous ne parlez pas latin, vous pensez certainement qu’il y a une signification derrière cette phrase. Et pourtant, il n’en est rien ! Il s’agit de lorem ipsum, autrement dit, un faux texte. Le lorem ipsum comprend plusieurs phrases et mots de longueurs variables. Ainsi, cela reproduit à l’identique un contenu réel, à la différence que celui-ci n’a aucun sens. Il est possible de créer un texte lorem ipsum à l’aide d'un générateur. Vous pouvez choisir le nombre de mots, de phrases ou encore de paragraphes.",
+    publishedDate: Date.now(),
+  });
 
-//   article
-//     .save()
-//     .then(() => console.log("Sauvegarde OK"))
-//     .catch(() => console.log("Sauvegarde KO"));
-// }
+  // article
+  //   .save()
+  //   .then(() => console.log("Sauvegarde OK"))
+  //   .catch(() => console.log("Sauvegarde KO"));
+}
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

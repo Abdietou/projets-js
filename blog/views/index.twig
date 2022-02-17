@@ -9,11 +9,11 @@
 		<div class="row">
 			{% for article in articles %}
 				<div class="card col-md-3 m-2" style="width: 18rem;">
-					<img src="https://picsum.photos/300/300" class="card-img-top" alt={{article.title}}>
+					<img src="https://picsum.photos/300/300" class="card-img-top" alt={{article.name}}>
 					<div class="card-body">
-						<h5 class="card-title">{{article.title}}</h5>
+						<h5 class="card-title">{{article.name}}</h5>
 
-						<a href="/articles/{{article._id}}" class="btn btn-primary">En savoir plus</a>
+						<a href="/article/{{article._id}}" class="btn btn-primary">En savoir plus</a>
 					</div>
 				</div>
 			{% endfor %}
