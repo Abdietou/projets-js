@@ -37,8 +37,12 @@ exports.add = (req, res) => {
 exports.addOne = (req, res) => {
   var article = new Article({
     ...req.body,
+    image: `${req.protocol}://${req.get("host")}/images/articles/${
+      req.file.filename
+    }`,
     publishedDate: Date.now(),
   });
+
   article.save((err, article) => {
     if (err) {
       Category.find()

@@ -2,7 +2,7 @@
 
 {% block body %}
 	<div class="" style="width: 100%;">
-		<img src="https://picsum.photos/1800/300" class="card-img-top" alt={{article.name}}>
+		<img src="{{article.image}}" width="1800" height="400" class="card-img-top" alt={{article.name}}>
 		<div class="card-body">
 			<h3>{{article.title}}</h3>
 			<a href="">Publié le{{article.publishedDate | date("d/m/Y")}}
