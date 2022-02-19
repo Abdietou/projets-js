@@ -1,0 +1,35 @@
+{% extends "layout.twig" %}
+
+{% block body %}
+    <form action="/add-article" method="post">
+
+        <div class="form-group">
+            <label for="">Titre :</label>
+            <input type="text" class="form-control" name="title">
+        </div>
+
+        <div class="form-group">
+            <label for="">Categorie :</label>
+                <select name="category" id="" class="form-control">
+                <option value="">Choix de la catégorie</option>
+                    {% if categories %}
+                        {% for item in categories %}
+                            <option value="{{item.title}}">{{item.title}}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+        </div>
+
+        <div class="form-group">
+            <label for="">Contenu :</label>
+            <textarea class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="">Image :</label>
+            <input type="file" class="form-control" name="image">
+        </div>
+
+        <button class="btn btn-success mt-3">Ajouter Article</button>
+    </form>
+{% endblock %}

@@ -5,6 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 const Article = require("./models/article.model");
+const Category = require("./models/category.model");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -34,6 +35,16 @@ for (let index = 0; index < 10; index++) {
   //   .save()
   //   .then(() => console.log("Sauvegarde OK"))
   //   .catch(() => console.log("Sauvegarde KO"));
+}
+
+for (let index = 0; index < 10; index++) {
+  var category = new Category({
+    title: "Qu'est-ce que le Lorem Ipsum " + index + " ?",
+    description:
+      "Le Lorem Ipsum apparaît régulièrement sur les sites web ou sur les templates de page internet. Si vous ne parlez pas latin, vous pensez certainement qu’il y a une signification derrière cette phrase. Et pourtant, il n’en est rien ! Il s’agit de lorem ipsum, autrement dit, un faux texte. Le lorem ipsum comprend plusieurs phrases et mots de longueurs variables. Ainsi, cela reproduit à l’identique un contenu réel, à la différence que celui-ci n’a aucun sens. Il est possible de créer un texte lorem ipsum à l’aide d'un générateur. Vous pouvez choisir le nombre de mots, de phrases ou encore de paragraphes.",
+  });
+
+  //category.save();
 }
 
 // view engine setup
