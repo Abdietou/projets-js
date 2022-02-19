@@ -6,11 +6,17 @@ var logger = require("morgan");
 
 const Article = require("./models/article.model");
 const Category = require("./models/category.model");
+const bodyParser = require("body-parser");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 var app = express();
+// Prise en charge du json
+app.use(bodyParser.json());
+
+// Prise en charge des formulaires HTML
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const mongoose = require("mongoose");
 mongoose

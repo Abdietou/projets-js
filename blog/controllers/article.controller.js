@@ -33,3 +33,35 @@ exports.add = (req, res) => {
       res.redirect("/");
     });
 };
+
+exports.addOne = (req, res) => {
+  var article = new Article({
+    ...req.body,
+    publishedDate: Date.now(),
+  });
+  article.save((err, article) => {
+    if (err) {
+      Category.find()
+        .then((categories) => {
+          res.render("add-article", {
+            categories: categories,
+            error: "Article KO",
+          });
+        })
+        .catch(() => {
+          res.redirect("/");
+        });
+    } else {
+      Category.find()
+        .then((categories) => {
+          res.render("add-article", {
+            categories: categories,
+            success: "Article OK",
+          });
+        })
+        .catch(() => {
+          res.redirect("/");
+        });
+    }
+  });
+};

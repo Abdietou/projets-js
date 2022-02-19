@@ -1,7 +1,17 @@
 {% extends "layout.twig" %}
 
 {% block body %}
-    <form action="/add-article" method="post">
+    <h1 class="text-center">Ajouter un Article</h1>
+
+    {% if success %}
+    <div class="alert alert-success">{{success}}</div>
+    {% endif %}
+    
+    {% if error %}
+    <div class="alert alert-danger">{{error}}</div>
+    {% endif %}
+
+    <form action="/add-article" method="POST">
 
         <div class="form-group">
             <label for="">Titre :</label>
