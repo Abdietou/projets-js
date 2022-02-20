@@ -3,6 +3,25 @@
 {% block body %}
     <h1 class="text-center">Ajouter un Article</h1>
 
+   {% if errorFromArticle %}
+        <p class="text-danger">Erreur !</p>
+        <ul class="errors">
+        {% for item in errorFromArticle %}
+            {% if item.title %}
+                <li>{{item.title.message}}</li>
+            {% endif %}
+             {% if item.category %}
+                <li>{{item.category.message}}</li>
+            {% endif %}
+             {% if item.content %}
+                <li>{{item.content.message}}</li>
+            {% endif %}
+             {% if item.image %}
+                <li>{{item.image.message}}</li>
+            {% endif %}           
+        {% endfor %}
+        </ul>
+   {% endif %}
    
 
     <form action="/add-article" method="POST" enctype="multipart/form-data">
@@ -36,4 +55,16 @@
 
         <button class="btn btn-success mt-3">Ajouter Article</button>
     </form>
+    
+{% endblock %}
+
+{% block javascript %}
+     <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+      <script>
+        ClassicEditor
+            .create( document.querySelector( '#content' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 {% endblock %}
