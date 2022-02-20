@@ -1,0 +1,77 @@
+{% extends "layout.twig" %}
+
+{% block body %}
+    <h1 class="text-center">Editer votre Article</h1>
+
+   {% if errorFromArticle %}
+        <p class="text-danger">Erreur !</p>
+        <ul class="errors">
+        {% for item in errorFromArticle %}
+            {% if item.title %}
+                <li>{{item.title.message}}</li>
+            {% endif %}
+             {% if item.category %}
+                <li>{{item.category.message}}</li>
+            {% endif %}
+             {% if item.content %}
+                <li>{{item.content.message}}</li>
+            {% endif %}
+             {% if item.image %}
+                <li>{{item.image.message}}</li>
+            {% endif %}           
+        {% endfor %}
+        </ul>
+   {% endif %}
+   
+
+    <form action="" method="POST" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="">Titre :</label>
+            <input type="text" class="form-control" name="title" value="{{article.title}}">
+        </div>
+
+        <div class="form-group">
+            <label for="">Categorie :</label>
+                <select name="category" id="" class="form-control">
+                <option value="">Choix de la catégorie</option>
+                    {% if categories %}
+                        {% for item in categories %}
+                            {% if item.title is same as(article.category) %}
+                                <option value="{{item.title}}" selected>{{item.title}}</option>
+                            {% else %}
+                                <option value="{{item.title}}">{{item.title}}</option>
+                            {% endif %}
+                                
+                        {% endfor %}
+                    {% endif %}
+                </select>
+        </div>
+
+        <div class="form-group">
+            <label for="">Contenu :</label>
+            <textarea class="form-control" name="content" id="content" cols="30" rows="10">
+                {{article.content | raw}}
+            </textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="">Image :</label>
+            <input type="file" class="form-control" name="image">
+        </div>
+
+        <button class="btn btn-success mt-3">Editer Article</button>
+    </form>
+    
+{% endblock %}
+
+{% block javascript %}
+     <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+      <script>
+        ClassicEditor
+            .create( document.querySelector( '#content' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+{% endblock %}
