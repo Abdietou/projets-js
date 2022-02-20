@@ -3,13 +3,7 @@
 {% block body %}
     <h1 class="text-center">Ajouter un Article</h1>
 
-    {% if success %}
-    <div class="alert alert-success">{{success}}</div>
-    {% endif %}
-    
-    {% if error %}
-    <div class="alert alert-danger">{{error}}</div>
-    {% endif %}
+   
 
     <form action="/add-article" method="POST" enctype="multipart/form-data">
 

@@ -27,7 +27,9 @@ exports.show = (req, res) => {
 exports.add = (req, res) => {
   Category.find()
     .then((categories) => {
-      res.render("add-article", { categories: categories });
+      res.render("add-article", {
+        categories: categories,
+      });
     })
     .catch(() => {
       res.redirect("/");
@@ -44,28 +46,35 @@ exports.addOne = (req, res) => {
   });
 
   article.save((err, article) => {
+    // if (err) {
+    //   Category.find()
+    //     .then((categories) => {
+    //       res.render("add-article", {
+    //         categories: categories,
+    //         error: "Article KO",
+    //       });
+    //     })
+    //     .catch(() => {
+    //       res.redirect("/");
+    //     });
+    // } else {
+    //   Category.find()
+    //     .then((categories) => {
+    //       res.render("add-article", {
+    //         categories: categories,
+    //         success: "Article OK",
+    //       });
+    //     })
+    //     .catch(() => {
+    //       res.redirect("/");
+    //     });
+    // }
+
     if (err) {
-      Category.find()
-        .then((categories) => {
-          res.render("add-article", {
-            categories: categories,
-            error: "Article KO",
-          });
-        })
-        .catch(() => {
-          res.redirect("/");
-        });
-    } else {
-      Category.find()
-        .then((categories) => {
-          res.render("add-article", {
-            categories: categories,
-            success: "Article OK",
-          });
-        })
-        .catch(() => {
-          res.redirect("/");
-        });
+      req.flash("error", "Ajout Article KO !");
+      return res.redirect("/add-article");
     }
+    req.flash("success", "Ajout Article OK !");
+    return res.redirect("/add-article");
   });
 };

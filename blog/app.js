@@ -1,24 +1,43 @@
 var createError = require("http-errors");
 var express = require("express");
+var session = require("express-session");
+var flash = require("connect-flash");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-const Article = require("./models/article.model");
-const Category = require("./models/category.model");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 var app = express();
+
+// session
+app.use(
+  session({
+    secret: "demflld45dsf5sf",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+// init flash
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.error = req.flash("error");
+  res.locals.success = req.flash("success");
+  next();
+});
+
 // Prise en charge du json
 app.use(bodyParser.json());
 
 // Prise en charge des formulaires HTML
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const mongoose = require("mongoose");
 mongoose
   .connect("mongodb://localhost:27017/blog", {
     useNewUrlParser: true,
@@ -29,29 +48,29 @@ mongoose
 
 /** example inster data */
 
-for (let index = 0; index < 10; index++) {
-  var article = new Article({
-    name: "Qu'est-ce que le Lorem Ipsum " + index + " ?",
-    content:
-      "Le Lorem Ipsum apparaît régulièrement sur les sites web ou sur les templates de page internet. Si vous ne parlez pas latin, vous pensez certainement qu’il y a une signification derrière cette phrase. Et pourtant, il n’en est rien ! Il s’agit de lorem ipsum, autrement dit, un faux texte. Le lorem ipsum comprend plusieurs phrases et mots de longueurs variables. Ainsi, cela reproduit à l’identique un contenu réel, à la différence que celui-ci n’a aucun sens. Il est possible de créer un texte lorem ipsum à l’aide d'un générateur. Vous pouvez choisir le nombre de mots, de phrases ou encore de paragraphes.",
-    publishedDate: Date.now(),
-  });
+// for (let index = 0; index < 10; index++) {
+//   var article = new Article({
+//     name: "Qu'est-ce que le Lorem Ipsum " + index + " ?",
+//     content:
+//       "Le Lorem Ipsum apparaît régulièrement sur les sites web ou sur les templates de page internet. Si vous ne parlez pas latin, vous pensez certainement qu’il y a une signification derrière cette phrase. Et pourtant, il n’en est rien ! Il s’agit de lorem ipsum, autrement dit, un faux texte. Le lorem ipsum comprend plusieurs phrases et mots de longueurs variables. Ainsi, cela reproduit à l’identique un contenu réel, à la différence que celui-ci n’a aucun sens. Il est possible de créer un texte lorem ipsum à l’aide d'un générateur. Vous pouvez choisir le nombre de mots, de phrases ou encore de paragraphes.",
+//     publishedDate: Date.now(),
+//   });
 
-  // article
-  //   .save()
-  //   .then(() => console.log("Sauvegarde OK"))
-  //   .catch(() => console.log("Sauvegarde KO"));
-}
+//   article
+//     .save()
+//     .then(() => console.log("Sauvegarde OK"))
+//     .catch(() => console.log("Sauvegarde KO"));
+// }
 
-for (let index = 0; index < 10; index++) {
-  var category = new Category({
-    title: "Qu'est-ce que le Lorem Ipsum " + index + " ?",
-    description:
-      "Le Lorem Ipsum apparaît régulièrement sur les sites web ou sur les templates de page internet. Si vous ne parlez pas latin, vous pensez certainement qu’il y a une signification derrière cette phrase. Et pourtant, il n’en est rien ! Il s’agit de lorem ipsum, autrement dit, un faux texte. Le lorem ipsum comprend plusieurs phrases et mots de longueurs variables. Ainsi, cela reproduit à l’identique un contenu réel, à la différence que celui-ci n’a aucun sens. Il est possible de créer un texte lorem ipsum à l’aide d'un générateur. Vous pouvez choisir le nombre de mots, de phrases ou encore de paragraphes.",
-  });
+// for (let index = 0; index < 10; index++) {
+//   var category = new Category({
+//     title: "Qu'est-ce que le Lorem Ipsum " + index + " ?",
+//     description:
+//       "Le Lorem Ipsum apparaît régulièrement sur les sites web ou sur les templates de page internet. Si vous ne parlez pas latin, vous pensez certainement qu’il y a une signification derrière cette phrase. Et pourtant, il n’en est rien ! Il s’agit de lorem ipsum, autrement dit, un faux texte. Le lorem ipsum comprend plusieurs phrases et mots de longueurs variables. Ainsi, cela reproduit à l’identique un contenu réel, à la différence que celui-ci n’a aucun sens. Il est possible de créer un texte lorem ipsum à l’aide d'un générateur. Vous pouvez choisir le nombre de mots, de phrases ou encore de paragraphes.",
+//   });
 
-  //category.save();
-}
+//   category.save();
+// }
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
