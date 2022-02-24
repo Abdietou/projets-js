@@ -3,10 +3,10 @@
 {% block body %}
     <h1 class="text-center">Ajouter un Article</h1>
 
-   {% if errorFromArticle %}
+   {% if errorFrom %}
         <p class="text-danger">Erreur !</p>
         <ul class="errors">
-        {% for item in errorFromArticle %}
+        {% for item in errorFrom %}
             {% if item.title %}
                 <li>{{item.title.message}}</li>
             {% endif %}

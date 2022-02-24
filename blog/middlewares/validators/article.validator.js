@@ -14,7 +14,7 @@ const articleValidator = (req, res, next) => {
   v.check().then((matched) => {
     if (!matched) {
       // erreur
-      req.flash("errorFromArticle", v.errors);
+      req.flash("errorFrom", v.errors);
       return res.redirect("/add-article");
     }
     next();

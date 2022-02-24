@@ -3,27 +3,7 @@
 {% block body %}
     <h1 class="text-center">Editer votre Article</h1>
 
-   {% if errorFromArticle %}
-        <p class="text-danger">Erreur !</p>
-        <ul class="errors">
-        {% for item in errorFromArticle %}
-            {% if item.title %}
-                <li>{{item.title.message}}</li>
-            {% endif %}
-             {% if item.category %}
-                <li>{{item.category.message}}</li>
-            {% endif %}
-             {% if item.content %}
-                <li>{{item.content.message}}</li>
-            {% endif %}
-             {% if item.image %}
-                <li>{{item.image.message}}</li>
-            {% endif %}           
-        {% endfor %}
-        </ul>
-   {% endif %}
-   
-
+  
     <form action="" method="POST" enctype="multipart/form-data">
 
         <div class="form-group">

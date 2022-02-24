@@ -7,10 +7,12 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 const bodyParser = require("body-parser");
+const passport = require("passport");
 const mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+const User = require("./models/user.model");
 
 var app = express();
 
@@ -26,10 +28,23 @@ app.use(
 // init flash
 app.use(flash());
 
+// init passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// passport local mongoose
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
+  if (req.user) {
+    res.locals.user = req.user;
+  }
   res.locals.error = req.flash("error");
   res.locals.success = req.flash("success");
-  res.locals.errorFromArticle = req.flash("errorFromArticle");
+  res.locals.errorFrom = req.flash("errorFrom");
+  res.locals.warning = req.flash("warning");
   next();
 });
 

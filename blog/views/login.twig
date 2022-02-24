@@ -1,0 +1,18 @@
+{% extends "layout.twig" %}
+
+{% block body %}
+    <h1>Se connecter</h1>
+    <form action="" method="POST">
+        <p class="text-center">Vous n'avez pas de compte ? <a href="/users/signup">Cliquez ici pour vous enregistrer !</a></p>
+        <div class="form-group">
+            <label for="username">Identifiant :</label>
+            <input type="text" id="username" value="nodejs" name="username" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" value="password" name="password" class="form-control">
+        </div>
+        <p class="text-center">Mot de passe oublié ? <a href="/users/forgot-password">Cliquez ici pour le reinitialiser !</a></p>
+        <button type="submit" class="btn btn-success mt-3">Se connecter</button>
+    </form>
+{% endblock %}

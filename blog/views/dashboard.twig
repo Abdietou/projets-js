@@ -1,0 +1,50 @@
+{% extends "layout.twig" %}
+
+{% block body %}
+    <h1>Dashboard</h1>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="article-tab" data-bs-toggle="tab" data-bs-target="#article" type="button" role="tab" aria-article="article" aria-selected="false">Article</button>
+    </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <h3>Hello : {{user.username}} </h3>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <h3>Profil</h3>
+        <form action="/users/save-profile" method="POST">
+
+        <input type="hidden" name="userId" value="{{user._id}}">
+        
+        <div class="form-group">
+            <label for="username">Identifiant :</label>
+            <input type="text" id="username" value="{{user.username}}" name="username" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="firstname">Nom :</label>
+            <input type="text" id="firstname" value="{{user.firstname}}" name="firstname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Prénom :</label>
+            <input type="text" id="lastname" value="{{user.lastname}}" name="lastname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="email">Email :</label>
+            <input type="text" id="email" value="{{user.email}}" name="email" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-success mt-3">Mettre à jour profile</button>
+    </form>
+    </div>
+    <div class="tab-pane fade" id="article" role="tabpanel" aria-labelledby="article-tab">
+        <h3>Mes articles</h3>
+    </div>
+    </div>
+{% endblock %}
