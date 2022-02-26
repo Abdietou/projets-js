@@ -1,9 +1,11 @@
 var express = require("express");
 
 const articleController = require("../controllers/article.controller");
+const categoryController = require("../controllers/category.controller");
 const multerConfig = require("../middlewares/multer.config");
 const articleValidator = require("../middlewares/validators/article.validator");
 const { guard } = require("../middlewares/guard");
+const categoryValidator = require("../middlewares/validators/category.validator");
 
 var router = express.Router();
 
@@ -31,5 +33,16 @@ router.post(
 );
 
 router.get("/delete-article/:id", guard, articleController.deleteArticle);
+
+router.get("/add-category", guard, (req, res) => {
+  res.render("add-category");
+});
+
+router.post(
+  "/add-category",
+  guard,
+  categoryValidator,
+  categoryController.addCategory
+);
 
 module.exports = router;

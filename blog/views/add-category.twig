@@ -1,0 +1,47 @@
+{% extends "layout.twig" %}
+
+{% block body %}
+	<h1 class="text-center">Ajouter un Article</h1>
+
+	{% if errorFrom %}
+		<p class="text-danger">Erreur !</p>
+		<ul class="errors">
+			{% for item in errorFrom %}
+				{% if item.title %}
+					<li>{{item.title.message}}</li>
+				{% endif %}
+				{% if item.description %}
+					<li>{{item.description.message}}</li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+
+	<form action="" method="POST">
+
+		<div class="form-group">
+			<label for="">Titre :</label>
+			<input type="text" class="form-control" name="title">
+		</div>
+
+
+		<div class="form-group">
+			<label for="">Description :</label>
+			<textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+		</div>
+
+
+		<button class="btn btn-success mt-3">Ajouter catégorie</button>
+	</form>
+
+{% endblock %}
+
+{% block javascript %}
+	<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+	<script>
+		ClassicEditor.create(document.querySelector('#description')).catch(error => {
+console.error(error);
+});
+	</script>
+{% endblock %}
