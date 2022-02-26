@@ -15,12 +15,14 @@ var usersRouter = require("./routes/users");
 const User = require("./models/user.model");
 const Article = require("./models/article.model");
 
+const dotenv = require("dotenv").config();
+
 var app = express();
 
 // session
 app.use(
   session({
-    secret: "demflld45dsf5sf",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
   })
@@ -71,7 +73,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 mongoose
-  .connect("mongodb://localhost:27017/blog", {
+  .connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

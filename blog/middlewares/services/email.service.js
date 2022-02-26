@@ -5,7 +5,7 @@ const sendResetMail = (req, res, next) => {
     service: "gmail",
     auth: {
       user: "abdietou@gmail.com",
-      pass: "wwtuyasz",
+      pass: process.env.PASSWORD,
     },
   });
 
