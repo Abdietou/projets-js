@@ -38,6 +38,8 @@ router.get("/dashboard", guard, (req, res) => {
   res.render("dashboard");
 });
 
+router.post("/save-profile", userController.saveProfile);
+
 // logout
 router.get("/logout", (req, res) => {
   req.logOut();

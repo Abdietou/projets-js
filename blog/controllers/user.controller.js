@@ -186,4 +186,41 @@ module.exports = {
       }
     );
   },
+  saveProfile: (req, res, next) => {
+    if (!req.user) {
+      req.flash("warning", "Connectez-vous pour modifier votre profil");
+      return res.redirect("/users/login");
+    }
+    if (req.user._id != req.body.userId) {
+      req.flash(
+        "error",
+        "Vous n'avez pas le droit de modifier ces informations"
+      );
+      return res.redirect("/users/dashboard");
+    }
+    User.findOne({ _id: req.body.userId }, (err, user) => {
+      if (err) {
+        console.log(err);
+      }
+      const oldUsername = user.username;
+
+      user.firstname = req.body.firstname ? req.body.firstname : user.firstname;
+      user.lastname = req.body.lastname ? req.body.lastname : user.lastname;
+      user.username = req.body.username ? req.body.username : user.username;
+      user.email = req.body.email ? req.body.email : user.email;
+
+      user.save((err, user) => {
+        if (err) {
+          req.flash("error", "Erreur !");
+          return res.redirect("/users/dashboard");
+        }
+        if (oldUsername != user.username) {
+          req.flash("success", "Login mis à jour, reconnectez-vous !");
+          return res.redirect("/users/login");
+        }
+        req.flash("success", "Profil mis à jour !");
+        return res.redirect("/users/dashboard");
+      });
+    });
+  },
 };
