@@ -13,6 +13,7 @@ const mongoose = require("mongoose");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const User = require("./models/user.model");
+const Article = require("./models/article.model");
 
 var app = express();
 
@@ -36,6 +37,21 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use((req, res, next) => {
+  if (req.isAuthenticated()) {
+    Article.find({ author: req.user._id }, (err, articles) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.locals.articles = articles;
+      }
+      next();
+    });
+  } else {
+    next();
+  }
+});
 
 app.use((req, res, next) => {
   if (req.user) {

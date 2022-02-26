@@ -1,5 +1,6 @@
 const Article = require("../models/article.model");
 const Category = require("../models/category.model");
+const User = require("../models/user.model");
 const fs = require("fs");
 
 exports.listArticle = (req, res) => {
@@ -43,6 +44,7 @@ exports.addOneArticle = (req, res) => {
     image: `${req.protocol}://${req.get("host")}/images/articles/${
       req.file.filename
     }`,
+    author: req.user,
     publishedDate: Date.now(),
   });
 
@@ -82,10 +84,14 @@ exports.addOneArticle = (req, res) => {
 
 exports.editArticle = (req, res) => {
   const id = req.params.id;
-  Article.findOne({ _id: id }, (err, article) => {
+  Article.findOne({ _id: id, author: req.user._id }, (err, article) => {
     if (err) {
       req.flash("error", err.message);
       return res.redirect("/");
+    }
+    if (!article) {
+      req.flash("error", "Désolé vous ne pouvez pas éditer cet article !");
+      return res.redirect("/edit-article/" + id);
     }
     Category.find((err, categories) => {
       if (err) {
@@ -104,9 +110,14 @@ exports.editArticle = (req, res) => {
 
 exports.editOneArticle = (req, res) => {
   const id = req.params.id;
-  Article.findOne({ _id: id }, (err, article) => {
+  Article.findOne({ _id: id, author: req.user._id }, (err, article) => {
     if (err) {
       req.flash("error", err.message);
+      return res.redirect("/edit-article/" + id);
+    }
+
+    if (!article) {
+      req.flash("error", "Désolé vous ne pouvez pas éditer cet article !");
       return res.redirect("/edit-article/" + id);
     }
 
@@ -135,4 +146,22 @@ exports.editOneArticle = (req, res) => {
       return res.redirect("/edit-article/" + id);
     });
   });
+};
+
+exports.deleteArticle = (req, res) => {
+  Article.deleteOne(
+    { _id: req.params.id, author: req.user._id },
+    (err, message) => {
+      if (err) {
+        req.flash("error", "Vous ne pouvez pas supprimer cet article !");
+        return res.redirect("/users/dashboard");
+      }
+      if (!message.deletedCount) {
+        req.flash("error", "Vous ne pouvez pas supprimer cet article !");
+        return res.redirect("/users/dashboard");
+      }
+      req.flash("success", "L'article a été supprimé !");
+      return res.redirect("/users/dashboard");
+    }
+  );
 };
